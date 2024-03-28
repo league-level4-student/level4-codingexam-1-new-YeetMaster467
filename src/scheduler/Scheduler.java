@@ -1,5 +1,6 @@
 package scheduler;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -27,10 +28,32 @@ import java.util.Scanner;
  */
 public class Scheduler {
 	
-	LinkedList<Event> events = new LinkedList<Event>();
-	Scanner s = new Scanner(System.in);
 	
+	Days[] days = new Days[7];
+		
     public static void main(String[] args) {
-    	
+    	start();
     }
+    
+    static void start () {
+    	Scanner s = new Scanner(System.in);
+    	System.out.println("-- WEEK SCHEDULER --\n\n1. Add an event\n2. Remove an event\n3. View events");
+    	
+    	int optionChosen = s.nextInt();
+    	
+    	if (optionChosen == 1) {
+    		System.out.println("\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
+    		optionChosen = s.nextInt();
+    		System.out.println("\n");
+    		switch (optionChosen) {
+    		case 1:
+    			
+    		}
+    	}
+    }
+    
+    void addEvent (Scanner s) {
+    	System.out.println("\nWhat time? (Enter in the ");
+    }
+    
 }
