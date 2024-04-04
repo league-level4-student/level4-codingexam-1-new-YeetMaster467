@@ -27,33 +27,77 @@ import java.util.Scanner;
  *   variables.
  */
 public class Scheduler {
-	
-	
-	Days[] days = new Days[7];
+
+	static Days[] days = new Days[7];
+
+	public static void main(String[] args) {
+		for (int i = 0; i < 7; i++) {
+			days[i] = Days.values()[i];
+		}
+		start();
+	}
+
+	static void start() {
+		Scanner s = new Scanner(System.in);
+		System.out.println("-- WEEK SCHEDULER --\n\n1. Add an event\n2. Remove an event\n3. View events\n4. Quit Program");
+
+		int optionChosen = s.nextInt();
+
+		if (optionChosen == 1) {
+			System.out.println(
+					"\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
+			optionChosen = s.nextInt();
+			System.out.println("\n");
+			addEvent(optionChosen - 1);
+		} else if (optionChosen == 2) {
+			System.out.println(
+					"\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
+			optionChosen = s.nextInt();
+			System.out.println("\n");
+			removeEvent(optionChosen);
+		} else if (optionChosen == 3) {
+			// will do later
+		} else if (optionChosen == 4) {
+			s.close();
+			System.exit(0);
+		}
 		
-    public static void main(String[] args) {
-    	start();
-    }
-    
-    static void start () {
-    	Scanner s = new Scanner(System.in);
-    	System.out.println("-- WEEK SCHEDULER --\n\n1. Add an event\n2. Remove an event\n3. View events");
-    	
-    	int optionChosen = s.nextInt();
-    	
-    	if (optionChosen == 1) {
-    		System.out.println("\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
-    		optionChosen = s.nextInt();
-    		System.out.println("\n");
-    		switch (optionChosen) {
-    		case 1:
-    			
-    		}
-    	}
-    }
-    
-    void addEvent (Scanner s) {
-    	System.out.println("\nWhat time? (Enter in the ");
-    }
-    
+		start();
+	}
+
+	static void addEvent(int dayNum) {
+		Scanner s = new Scanner(System.in);
+		System.out.println("\nWhat time? (Enter in the hour of the day.)");
+		int time = s.nextInt();
+		System.out.println("\nWrite a short description of what is happening at the event.");
+		String desc = s.nextLine();
+		try {
+			days[dayNum].addEvent(new Event(time, desc));
+			System.out.println("\nEvent added succesfully.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("\nInvalid day.");
+		}
+		
+		//s.close();
+	}
+	
+	static void removeEvent (int dayNum) {
+		Scanner s = new Scanner(System.in);
+		Node<Event> head = days[dayNum].getEvents().getHead();
+		if (head != null) {
+			int i = 1;
+			while (head.getNext() != null) {
+				System.out.println(i + ". " + head.getValue().toString());
+				head = head.getNext();
+			}
+			int optionPicked = s.nextInt();
+			days[dayNum].removeEvent(optionPicked);
+			System.out.println("Event removed.");
+		} else {
+			System.out.println("Nothing to remove.");
+		}
+		
+		//s.close();
+	}
+
 }

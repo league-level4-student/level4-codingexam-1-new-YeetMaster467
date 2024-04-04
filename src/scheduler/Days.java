@@ -14,17 +14,21 @@ public enum Days {
 		events = e;
 	}
 	
+	
 	public void addEvent (Event e) {
 		
 		Node<Event> head = events.getHead();
-		while (head.getNext() != null) {
-			try {
-				checkEvents( head.getValue(), head.getNext().getValue() );
-			} catch (SchedulingConflictException sce) {
-				sce.printWarning();
-				return;
+		
+		if (head != null) {
+			while (head.getNext() != null) {
+				try {
+					checkEvents( head.getValue(), head.getNext().getValue() );
+				} catch (SchedulingConflictException sce) {
+					sce.printWarning();
+					return;
+				}
+				head = head.getNext();
 			}
-			head = head.getNext();
 		}
 		
 		events.add(e);

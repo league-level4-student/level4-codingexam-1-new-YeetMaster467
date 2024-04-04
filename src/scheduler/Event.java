@@ -31,4 +31,9 @@ public class Event {
 		System.out.println(time + " - " + desc);
 	}
 	
+	@Override
+	public String toString() {
+		return time + " - " + desc;
+	}
+	
 }
