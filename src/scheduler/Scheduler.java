@@ -47,16 +47,24 @@ public class Scheduler {
 			System.out.println(
 					"\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
 			optionChosen = s.nextInt();
-			System.out.println("\n");
+			System.out.println();
 			addEvent(optionChosen - 1);
 		} else if (optionChosen == 2) {
 			System.out.println(
 					"\nWhich day?\n\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
 			optionChosen = s.nextInt();
-			System.out.println("\n");
-			removeEvent(optionChosen);
+			System.out.println();
+			removeEvent(optionChosen - 1);
 		} else if (optionChosen == 3) {
-			// will do later
+			for (int i = 0; i < days.length; i++) {
+				System.out.println(days[i].toString() + ":");
+				if (days[i].eventsEmpty()) {
+					System.out.println("Nothing scheduled today.");
+				} else {
+					days[i].printEvents();
+				}
+				System.out.println();
+			}
 		} else if (optionChosen == 4) {
 			s.close();
 			System.exit(0);
@@ -70,6 +78,7 @@ public class Scheduler {
 		System.out.println("\nWhat time? (Enter in the hour of the day.)");
 		int time = s.nextInt();
 		System.out.println("\nWrite a short description of what is happening at the event.");
+		s.nextLine();
 		String desc = s.nextLine();
 		try {
 			days[dayNum].addEvent(new Event(time, desc));
@@ -86,12 +95,13 @@ public class Scheduler {
 		Node<Event> head = days[dayNum].getEvents().getHead();
 		if (head != null) {
 			int i = 1;
-			while (head.getNext() != null) {
+			while (head != null) {
 				System.out.println(i + ". " + head.getValue().toString());
 				head = head.getNext();
+				i++;
 			}
 			int optionPicked = s.nextInt();
-			days[dayNum].removeEvent(optionPicked);
+			days[dayNum].removeEvent(optionPicked - 1);
 			System.out.println("Event removed.");
 		} else {
 			System.out.println("Nothing to remove.");

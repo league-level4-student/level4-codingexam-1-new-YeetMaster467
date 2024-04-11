@@ -28,12 +28,12 @@ public class Event {
 	}
 	
 	public void print () {
-		System.out.println(time + " - " + desc);
+		System.out.println(time + ":00" + " - " + desc);
 	}
 	
 	@Override
 	public String toString() {
-		return time + " - " + desc;
+		return time + ":00" + " - " + desc;
 	}
 	
 }

@@ -20,9 +20,9 @@ public enum Days {
 		Node<Event> head = events.getHead();
 		
 		if (head != null) {
-			while (head.getNext() != null) {
+			while (head != null) {
 				try {
-					checkEvents( head.getValue(), head.getNext().getValue() );
+					checkEvents( head , new Node<Event>(e) );
 				} catch (SchedulingConflictException sce) {
 					sce.printWarning();
 					return;
@@ -40,15 +40,27 @@ public enum Days {
 	
 	public void printEvents () {
 		Node<Event> head = events.getHead();
-		while (head.getNext() != null) {
-			events.getHead().getValue().print();
+		while (head != null) {
+			head.getValue().print();
 			head = head.getNext();
 		}
 	}
 	
-	public void checkEvents (Event e1, Event e2) throws SchedulingConflictException {
-		if (e1.getTime() == e2.getTime()) {
+	public void checkEvents (Node<Event> e1, Node<Event> e2) throws SchedulingConflictException {
+		if (e1 == null || e2 == null) {
+			return;
+		}
+		if (e1.getValue().getTime() == e2.getValue().getTime()) {
 			throw new SchedulingConflictException();
+		}
+	}
+	
+	public boolean eventsEmpty () {
+		Node<Event> head = events.getHead();
+		if (head == null) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
